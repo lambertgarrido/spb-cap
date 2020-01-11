@@ -1,8 +1,8 @@
 - name: Home
-  link: /spb-cap/
+  link: /
 - name: About
-  link: /spb-cap/about.html
+  link: /about.html
 - name: Blog
-  link: /spb-cap/blog.html
+  link: /blog.html
 - name: Staff
-  link: /spb-cap/staff.html
+  link: /staff.html
