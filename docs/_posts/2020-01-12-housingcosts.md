@@ -249,9 +249,10 @@ These values are plotted versus survey year below. Note that for 1985 and 1987, 
 ## FURTHER WORK
 
 To improve the predictive power of these machine learning models, the following items will be considered:
-During the data cleaning steps, a large fraction of observations had no defined VALUE column. Therefore, these rows were dropped. Instead, these missing values can be imputed based on similar entries or via by averaging over the known values.
-Consider other data sets that contain more precise location data. The current data set only specifies the 4 census regions and whether or not the housing unit is in a central city. It is well known that housing prices are higher in coastal cities and cheaper in the interior of the United States. Perhaps knowing a more precise location will help the model learn better.
-Use random forest with 100 estimators and try hyperparameter tuning/cross validation for support vector machine model. These steps were not done in this current project due to constraints of computational resources.
+
+* During the data cleaning steps, a large fraction of observations had no defined VALUE column. Therefore, these rows were dropped. Instead, these missing values can be imputed based on similar entries or via by averaging over the known values.
+* Consider other data sets that contain more precise location data. The current data set only specifies the 4 census regions and whether or not the housing unit is in a central city. It is well known that housing prices are higher in coastal cities and cheaper in the interior of the United States. Perhaps knowing a more precise location will help the model learn better.
+* Use random forest with 100 estimators and try hyperparameter tuning/cross validation for support vector machine model. These steps were not done in this current project due to constraints of computational resources.
 
 ## CONCLUSION
 In conclusion, a linear ridge model and random forest model were used to predict the monthly housing cost. Both models determined that the housing unit market value is an important indicator of the monthly housing cost. However both models disagree in what other parameters are important predictor variables. The random forest model on average has a smaller percent error than the linear ridge model. A support vector machine is used to predict whether or not a housing unit is in the top 10% of monthly housing cost. The accuracy, precision, and recall are calculated for this model. Finally, ideas on improving the predictive power of these models is discussed.
