@@ -124,10 +124,160 @@ This model is applied due to its simplicity and easy interpretability of the out
 ![coefficients scaled linear model]({{ site.baseurl }}/assets/images/coeffs_scaled_linear.png "coefficients scaled linear model")
 
 ### Random Forest
-The next model used is the random forest. This is a popular model that can account for nonlinear effects in the data, unlike the ridge linear model. The training data is fed into an instance of a random forest model with default parameters. The score on the test data is around 0.57. Next the training data set is used for 3-fold cross validation, obtaining scores in the 0.56-0.57 range. The feature importance values are plotted below. The importance values add up to one. The higher a feature’s importance value, the more important that feature is.
-It is to be noted that for the data comprised of the survey years 2009-2013, tuning was performed over the parameters max_depth, max_features, n_estimators over the values [3, 5, 7, None],  ['auto', 'sqrt', 'log2'], and [10, 100], respectively.<sup><a href="#fn2" id="ref2">2</a></sup> The best parameter combination turned out to be (max_depth = None, max_features = ‘auto’, n_estimators = 100) with best score of 0.541. However, due to constraints in computational resources, the default parameter combination (max_depth = None, max_features = ‘auto’, n_estimators = 10) was used on the full data set.
+The next model used is the random forest. This is a popular model that can account for nonlinear effects in the data, unlike the ridge linear model. The training data is fed into an instance of a random forest model with default parameters. The score on the test data is around 0.61. Next the training data set is used for 3-fold cross validation, obtaining scores in the 0.60-0.62 range. The feature importance values are plotted below. The importance values add up to one. The higher a feature’s importance value, the more important that feature is.
 
 ![random forest importance]({{ site.baseurl }}/assets/images/importance_rf.png "random forest importance")
+
+It is to be noted that parameter tuning was performed over the following parameter grid<sup><a href="#fn2" id="ref2">2</a></sup>:
+
+<table style="width:30%">
+  <tr>
+    <th colspan="2">Grid 1</th>
+  </tr>
+  <tr>
+    <th>Parameter</th>
+    <th>Values</th>
+  </tr>
+  <tr>
+    <td>bootstrap</td>
+    <td>True, False</td>
+  </tr>
+  <tr>
+    <td>max_depth</td>
+    <td>10, 12, 14, 16, 18, 20, 22, 24, 26,  28, 30, None</td>
+  </tr>
+  <tr>
+    <td>max_features</td>
+    <td>auto, sqrt, log2</td>
+  </tr>
+  <tr>
+    <td>min_samples_leaf</td>
+    <td>1, 2, 4</td>
+  </tr>
+  <tr>
+    <td>min_samples_split</td>
+    <td>2, 5, 10</td>
+  </tr>
+  <tr>
+    <td>n_estimators</td>
+    <td>20, 50, 100, 150, 200</td>
+  </tr>
+</table>
+
+Instead of scanning the entire parameter space, 100 parameter combinations were chosen at random and the score was evaluated over these points. Over these 100 points, the score varied from 0.26 up to 0.62. The best score obtained was 0.619 with best parameter values set to:
+
+<table style="width:30%">
+  <tr>
+    <th colspan="2">Best Parameters Grid 1</th>
+  </tr>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>bootstrap</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>max_depth</td>
+    <td>18</td>
+  </tr>
+  <tr>
+    <td>max_features</td>
+    <td>sqrt</td>
+  </tr>
+  <tr>
+    <td>min_samples_leaf</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>min_samples_split</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>n_estimators</td>
+    <td>200</td>
+  </tr>
+</table>
+
+Next, a second grid around the best parameter values listed above was created: 
+
+<table style="width:30%">
+  <tr>
+    <th colspan="2">Grid 2</th>
+  </tr>
+  <tr>
+    <th>Parameter</th>
+    <th>Values</th>
+  </tr>
+  <tr>
+    <td>bootstrap</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>max_depth</td>
+    <td>16, 18, 20</td>
+  </tr>
+  <tr>
+    <td>max_features</td>
+    <td>sqrt</td>
+  </tr>
+  <tr>
+    <td>min_samples_leaf</td>
+    <td>1, 2</td>
+  </tr>
+  <tr>
+    <td>min_samples_split</td>
+    <td>2, 5, 10</td>
+  </tr>
+  <tr>
+    <td>n_estimators</td>
+    <td>100, 200, 500</td>
+  </tr>
+</table>
+
+The score was evaluated for all the points in this grid, with scores ranging from 0.616 up to the best score of 0.619. The best score parameters turned out to be:
+
+<table style="width:30%">
+  <tr>
+    <th colspan="2">Best Parameters Grid 2</th>
+  </tr>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>bootstrap</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>max_depth</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <td>max_features</td>
+    <td>sqrt</td>
+  </tr>
+  <tr>
+    <td>min_samples_leaf</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>min_samples_split</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>n_estimators</td>
+    <td>500</td>
+  </tr>
+</table>
+
+For the results that follow in the discussion section, n_estimators (number of trees) was set to 100 and the other parameters were set to their default values. These settings result in a score of 0.61 which is quite close to the best scores of 0.62 obtained from the parameter grid searches.
+
+Finally, the plot below shows the average fit time versus n_estimators parameter for the points from the second grid. Note the positive linear relationship. For our purposes, a 100-tree random forest might not give the best score (although comes close), but it does run about 5 times faster than a 500-tree random forest.
+
+![time vs number of trees]({{ site.baseurl }}/assets/images/time_vs_trees.png "time vs number of trees")
+
 
 ### Support Vector Machine
 Finally, a support vector machine (SVM) model is used to predict whether or not a housing unit monthly cost is in the top 10%. For this part, a new column was created indicating whether or not a housing unit is in the top 10% of monthly housing cost for a given survey year. This column becomes the variable that the support vector machine needs to predict. The results of this model will be presented in the next section. Again the training data is used to fit the model and the test data is used to quantify the prediction accuracy.
@@ -252,7 +402,7 @@ To improve the predictive power of these machine learning models, the following 
 
 * During the data cleaning steps, a large fraction of observations had no defined VALUE column. Therefore, these rows were dropped. Instead, these missing values can be imputed based on similar entries or via by averaging over the known values.
 * Consider other data sets that contain more precise location data. The current data set only specifies the 4 census regions and whether or not the housing unit is in a central city. It is well known that housing prices are higher in coastal cities and cheaper in the interior of the United States. Perhaps knowing a more precise location will help the model learn better.
-* Use random forest with 100 estimators and try hyperparameter tuning/cross validation for support vector machine model. These steps were not done in this current project due to constraints of computational resources.
+* Try hyperparameter tuning/cross validation for support vector machine model.
 
 ## CONCLUSION
 In conclusion, a linear ridge model and random forest model were used to predict the monthly housing cost. Both models determined that the housing unit market value is an important indicator of the monthly housing cost. However both models disagree in what other parameters are important predictor variables. The random forest model on average has a smaller percent error than the linear ridge model. A support vector machine is used to predict whether or not a housing unit is in the top 10% of monthly housing cost. The accuracy, precision, and recall are calculated for this model. Finally, ideas on improving the predictive power of these models is discussed.
