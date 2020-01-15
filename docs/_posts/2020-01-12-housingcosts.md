@@ -383,15 +383,15 @@ For the support vector machine, a binary variable is defined if the housing unit
 <table style="width:20%">
   <tr>
     <td>Accuracy</td>
-    <td>0.926</td>
+    <td>0.925</td>
   </tr>
   <tr>
     <td>Precision</td>
-    <td>0.745</td>
+    <td>0.747</td>
   </tr>
   <tr>
     <td>Recall</td>
-    <td>0.431</td>
+    <td>0.421</td>
   </tr>
 </table>
 
