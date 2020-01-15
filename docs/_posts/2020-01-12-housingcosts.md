@@ -284,7 +284,11 @@ Finally, a support vector machine (SVM) model is used to predict whether or not 
 
 ## DISCUSSION
 
-In the table below, the top 10 features are listed for the ridge linear and random forest model. Both models agree that the housing unit market value (feature name VALUE) is the most important factor in determining the monthly housing cost. Both models also list AGE, IPOV, and FMR in their top 5 features. For ridge linear, the 4 other important features features are measurements related to the median area income. For random forest, the 4 other important features have to do with the household’s income and the age of the head of the household.
+In the table below, the top 10 features are listed for the ridge linear and random forest model. Both models agree that the housing unit market value (feature name VALUE) is the most important factor in determining the monthly housing cost.
+
+For random forest, the second most important predicter is AGE (age of head of household), followed by INCRELAMIPCT (income). Next most important predictors for this model are variables that measure local market conditions IPOV (poverty level income), FMR (fair market rent), and LMED (median income). The least important variables include the survey year (YEAR) and variables describing the housing characteristics (ROOMS, BEDRMS, PER (number of people)).
+
+For the linear model, the same set of variables (except for BEDRMS) are considered important; however the order of importance is different than the random forest model. Whether or not the housing unit was built in 2000-2009 was an important predictor for the linear model.
 
 <table style="width:50%">
   <tr>
@@ -359,7 +363,7 @@ In the table below, the top 10 features are listed for the ridge linear and rand
   </tr>
 </table> 
 
-Next, the percent error is calculated for each model. As a baseline for comparison, a third model is defined which predicts the sample average, regardless of the feature values. Such a model would have a score of 0. The average percent error is plotted across survey years for linear ridge, random forest, and baseline model. The random forest has the smallest average percent error, except for the years 1987 and 1995 where linear ridge has a smaller average percent error. For most survey years, the linear model is better than the baseline model. However this is not true for the years 2005, 2009, and 2011.
+Next, the percent error is calculated for each model. As a baseline for comparison, a third model is defined which predicts the sample average, regardless of the feature values. Such a model would have a score of 0. The average percent error is plotted across survey years for linear ridge, random forest, and baseline model. The random forest has by far the smallest average percent error. For earlier survey years, the linear model performs better than the baseline model. For later survey years, the baseline model outperforms the linear model.
 
 ![average percent error]({{ site.baseurl }}/assets/images/avg_percent_error_all.png "average percent error")
 
@@ -373,7 +377,7 @@ Below are boxplots of the percent error for random forest model (full plot and z
 
 ![box plot rf zoomed]({{ site.baseurl }}/assets/images/percent_error_boxplot_rf_zoomedin.png "box plot rf zoomed")
 
-For the support vector machine, the accuracy, precision, and recall are calculated.<sup><a href="#fn3" id="ref3">3</a></sup> These values are listed below.
+For the support vector machine, a binary variable is defined if the housing unit is above the 90th percentile for the monthly housing cost. The accuracy, precision, and recall are calculated for this variable.<sup><a href="#fn3" id="ref3">3</a></sup> These values are listed below.
 
 
 <table style="width:20%">
@@ -405,7 +409,7 @@ To improve the predictive power of these machine learning models, the following 
 * Try hyperparameter tuning/cross validation for support vector machine model.
 
 ## CONCLUSION
-In conclusion, a linear ridge model and random forest model were used to predict the monthly housing cost. Both models determined that the housing unit market value is an important indicator of the monthly housing cost. However both models disagree in what other parameters are important predictor variables. The random forest model on average has a smaller percent error than the linear ridge model. A support vector machine is used to predict whether or not a housing unit is in the top 10% of monthly housing cost. The accuracy, precision, and recall are calculated for this model. Finally, ideas on improving the predictive power of these models is discussed.
+In conclusion, a linear ridge model and random forest model were used to predict the monthly housing cost. Both models determined that the housing unit market value is an important indicator of the monthly housing cost. Both models almost had the same set of important predictor variables. However, the order of importance differed. The random forest model has on average a smaller percent error than the linear ridge model. A support vector machine is used to predict whether or not a housing unit is in the top 10% of monthly housing cost. The accuracy, precision, and recall are calculated for this model. Finally, ideas on improving the predictive power of these models are discussed.
 
 
 
