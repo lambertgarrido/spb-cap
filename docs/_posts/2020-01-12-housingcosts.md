@@ -94,7 +94,7 @@ To avoid data leakage issues, the features corresponding to cost measures are no
 
 The HADS data files provide more features which are not included in the following analysis. These discarded variables are related to either LMED or INCRELAMIPCT.
 
-Note that the features starting with string FTM (for formatted) are categorical variables. Therefore one-hot encoding was applied to these, ending up with with a 29-dimensional feature space. Following various data clearning/wrangling steps, the data set ends up having 486,785 observations.
+Note that the features starting with string FMT (for formatted) are categorical variables. Therefore one-hot encoding was applied to these, ending up with with a 29-dimensional feature space. Following various data clearning/wrangling steps, the data set ends up having 486,785 observations.
 
 For the analysis that follows, Python code was written in various Jupyter notebooks. The notebook files can be found [here](https://github.com/lambertgarrido/spb-cap)
 
